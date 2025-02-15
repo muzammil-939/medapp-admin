@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:gomedserv/financial_management/payment_screen.dart';
+import 'package:gomedserv/screens/financial_management/payment_screen.dart';
 import 'package:gomedserv/widgets/bottomnavigation.dart';
 import 'package:gomedserv/widgets/topbar.dart';
 

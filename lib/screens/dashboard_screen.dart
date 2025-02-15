@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:gomedserv/analytics/analytics.dart';
-import 'package:gomedserv/booking_management/booking_management.dart';
-import 'package:gomedserv/financial_management/manage_screen.dart';
-import 'package:gomedserv/service_management/manage_services.dart';
+import 'package:gomedserv/screens/analytics/analytics.dart';
+import 'package:gomedserv/screens/booking_management/booking_management.dart';
+import 'package:gomedserv/screens/financial_management/manage_screen.dart';
+import 'package:gomedserv/screens/notification_screen.dart';
+import 'package:gomedserv/screens/service_management/manage_services.dart';
 import 'package:gomedserv/screens/settings_screen.dart';
-import 'package:gomedserv/user_management/manageusers_screen.dart';
-import 'package:gomedserv/vendor_management/vendor_list.dart';
+import 'package:gomedserv/screens/user_management/manageusers_screen.dart';
+import 'package:gomedserv/screens/vendor_management/vendor_list.dart';
 import 'package:gomedserv/widgets/bottomnavigation.dart';
-
-import '../screens/notification_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   @override

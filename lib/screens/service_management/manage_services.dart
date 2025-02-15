@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gomedserv/widgets/bottomnavigation.dart';
-import 'package:gomedserv/service_management/add_service.dart';
+import 'package:gomedserv/screens/service_management/add_service.dart';
 import 'package:gomedserv/widgets/topbar.dart';
 import 'package:gomedserv/models/manage_users_model.dart';
 
@@ -77,45 +77,67 @@ class _ManageServicesState extends State<ManageServices> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Spacer(),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddServiceScreen(),
-                ),
-              );
-            },
-            child: const Text(
-              "Add Service",
-              style: TextStyle(
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ),
-          SizedBox(
-              width: paddingScale * 0.4), // Responsive spacing between buttons
-          GestureDetector(
-            onTap: () {},
-            child: const Text(
-              "Edit",
-              style: TextStyle(
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ),
-          SizedBox(
-              width: paddingScale * 0.4), // Responsive spacing between buttons
-          GestureDetector(
-            onTap: () {},
-            child: const Text(
-              "Delete",
-              style: TextStyle(
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ),
+         const  Spacer(),
+         ElevatedButton(
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddServiceScreen(),
+      ),
+    );
+  },
+  style: ElevatedButton.styleFrom(
+    backgroundColor: const Color.fromARGB(255, 193, 234, 205), // Customize color
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8),
+    ),
+    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+  ),
+  child: const Text(
+    "Add Service",
+    style: TextStyle(color:Colors.black, fontSize: 14),
+  ),
+),
+
+          // GestureDetector(
+          //   onTap: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => AddServiceScreen(),
+          //       ),
+          //     );
+          //   },
+          //   child: const Text(
+          //     "Add Service",
+          //     style: TextStyle(
+          //       decoration: TextDecoration.underline,
+          //     ),
+          //   ),
+          // ),
+          // SizedBox(
+          //     width: paddingScale * 0.4), // Responsive spacing between buttons
+          // GestureDetector(
+          //   onTap: () {},
+          //   child: const Text(
+          //     "Edit",
+          //     style: TextStyle(
+          //       decoration: TextDecoration.underline,
+          //     ),
+          //   ),
+          // ),
+          // SizedBox(
+          //     width: paddingScale * 0.4), // Responsive spacing between buttons
+          // GestureDetector(
+          //   onTap: () {},
+          //   child: const Text(
+          //     "Delete",
+          //     style: TextStyle(
+          //       decoration: TextDecoration.underline,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

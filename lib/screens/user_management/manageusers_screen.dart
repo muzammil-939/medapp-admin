@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gomedserv/widgets/bottomnavigation.dart';
-import 'package:gomedserv/booking_management/add_commission.dart';
+import 'package:gomedserv/screens/user_management/user_profile.dart';
 import 'package:gomedserv/widgets/topbar.dart';
 import 'package:gomedserv/models/manage_users_model.dart';
 
-class BookingManagement extends StatefulWidget {
-  const BookingManagement({super.key});
-
+class ManageUsersScreen extends StatefulWidget {
   @override
-  State<BookingManagement> createState() => _BookingManagementState();
+  _ManageUsersScreenState createState() => _ManageUsersScreenState();
 }
 
-class _BookingManagementState extends State<BookingManagement> {
+class _ManageUsersScreenState extends State<ManageUsersScreen> {
   String searchQuery = '';
 
   @override
@@ -19,7 +17,6 @@ class _BookingManagementState extends State<BookingManagement> {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
-    // Define padding and height based on screen dimensions
     final double paddingHorizontal = screenWidth * 0.04; // 4% of screen width
     final double topBarHeight = screenHeight * 0.07; // 7% of screen height
     final double searchBarHeight = screenHeight * 0.06; // 6% of screen height
@@ -28,6 +25,8 @@ class _BookingManagementState extends State<BookingManagement> {
     final filteredUsers = usersData
         .where((user) =>
             user.username?.toLowerCase().contains(searchQuery.toLowerCase()) ??
+            false ||
+                user.email!.toLowerCase().contains(searchQuery.toLowerCase()) ??
             false)
         .toList();
 
@@ -37,23 +36,25 @@ class _BookingManagementState extends State<BookingManagement> {
           child: Column(
             children: [
               TopBar(
-                title: 'Booking Management',
+                title: 'Manage Users',
                 onBackPressed: () {
                   Navigator.pop(context);
                 },
               ),
+
               SizedBox(height: screenHeight * 0.01), // 1% of screen height
               _buildSearchBar(paddingHorizontal, searchBarHeight),
-              SizedBox(height: screenHeight * 0.01), // 1% of screen height
-              _buildUserListRow(context, paddingHorizontal),
+              SizedBox(
+                  height:
+                      screenHeight * 0.01), // Space between search bar and row
+              _buildUserListRow(paddingHorizontal),
               if (filteredUsers.isEmpty)
                 Padding(
-                  padding:
-                      EdgeInsets.all(screenWidth * 0.04), // 4% of screen width
+                  padding: EdgeInsets.all(screenHeight * 0.02),
                   child: Text(
                     'No users found.',
                     style: TextStyle(
-                        fontSize: screenHeight * 0.02, color: Colors.grey),
+                        fontSize: screenWidth * 0.04, color: Colors.grey),
                   ),
                 )
               else
@@ -71,50 +72,24 @@ class _BookingManagementState extends State<BookingManagement> {
     );
   }
 
-  Widget _buildUserListRow(BuildContext context, double paddingHorizontal) {
+  Widget _buildUserListRow(double paddingHorizontal) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: paddingHorizontal),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            'Booking Overview',
+          Text(
+            'Users List',
             style: TextStyle(
-              fontSize: 14,
+              fontSize:
+                  paddingHorizontal * 1.2, // Adjust font size based on padding
               fontWeight: FontWeight.bold,
             ),
           ),
-          Spacer(),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddCommission(),
-                ),
-              );
-            },
-            child: const Text(
-              "Commissions",
-              style: TextStyle(
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ),
-          SizedBox(width: paddingHorizontal * 0.1), // Add some spacing
           GestureDetector(
             onTap: () {},
-            child: const Text(
-              "Reschedule",
-              style: TextStyle(
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ),
-          SizedBox(width: paddingHorizontal * 0.1), // Add some spacing
-          GestureDetector(
-            onTap: () {},
-            child: const Text(
-              "Cancel",
+            child: Text(
+              "Deactivate",
               style: TextStyle(
                 decoration: TextDecoration.underline,
               ),
@@ -152,7 +127,7 @@ class _BookingManagementState extends State<BookingManagement> {
   }
 
   Widget _buildUserList(List<User> users, double listHeight) {
-    return SizedBox(
+    return Container(
       height: listHeight,
       child: ListView.builder(
         padding: EdgeInsets.zero,
@@ -165,16 +140,14 @@ class _BookingManagementState extends State<BookingManagement> {
               borderRadius: BorderRadius.circular(8.0),
             ),
             elevation: 4,
-            margin: EdgeInsets.symmetric(
-              vertical: listHeight * 0.01, // 1% of list height
-              horizontal: listHeight * 0.02, // 2% of list height
-            ),
+            margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 12.0),
             child: ListTile(
               title: Text(
                 "${user.username ?? "No Name"}",
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: listHeight * 0.03, // Adjust based on list height
+                  fontSize: MediaQuery.of(context).size.width *
+                      0.045, // Adjust font size based on screen width
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -185,10 +158,6 @@ class _BookingManagementState extends State<BookingManagement> {
                     "${user.email ?? "No Email"}",
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    style: TextStyle(
-                      fontSize:
-                          listHeight * 0.02, // Adjust based on list height
-                    ),
                   ),
                   Text(
                     "${user.date ?? "No Date"}",
@@ -196,8 +165,8 @@ class _BookingManagementState extends State<BookingManagement> {
                     maxLines: 1,
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize:
-                          listHeight * 0.02, // Adjust based on list height
+                      fontSize: MediaQuery.of(context).size.width *
+                          0.035, // Adjust font size based on screen width
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -214,8 +183,8 @@ class _BookingManagementState extends State<BookingManagement> {
                     style: TextStyle(
                       color:
                           user.status == 'Active' ? Colors.green : Colors.red,
-                      fontSize:
-                          listHeight * 0.02, // Adjust based on list height
+                      fontSize: MediaQuery.of(context).size.width *
+                          0.035, // Adjust font size based on screen width
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -224,7 +193,10 @@ class _BookingManagementState extends State<BookingManagement> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddCommission()),
+                  MaterialPageRoute(
+                      builder: (context) => UserProfileScreen(
+                            user: user,
+                          )),
                 );
               },
             ),

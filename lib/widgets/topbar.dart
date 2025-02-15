@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../screens/notification_screen.dart';
+import 'package:gomedserv/screens/notification_screen.dart';
 
 class TopBar extends StatelessWidget {
   final String title;

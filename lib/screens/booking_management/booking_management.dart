@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:gomedserv/widgets/bottomnavigation.dart';
-import 'package:gomedserv/user_management/user_profile.dart';
+import 'package:gomedserv/screens/booking_management/add_commission.dart';
 import 'package:gomedserv/widgets/topbar.dart';
 import 'package:gomedserv/models/manage_users_model.dart';
 
-class ManageUsersScreen extends StatefulWidget {
+class BookingManagement extends StatefulWidget {
+  const BookingManagement({super.key});
+
   @override
-  _ManageUsersScreenState createState() => _ManageUsersScreenState();
+  State<BookingManagement> createState() => _BookingManagementState();
 }
 
-class _ManageUsersScreenState extends State<ManageUsersScreen> {
+class _BookingManagementState extends State<BookingManagement> {
   String searchQuery = '';
 
   @override
@@ -17,6 +19,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
+    // Define padding and height based on screen dimensions
     final double paddingHorizontal = screenWidth * 0.04; // 4% of screen width
     final double topBarHeight = screenHeight * 0.07; // 7% of screen height
     final double searchBarHeight = screenHeight * 0.06; // 6% of screen height
@@ -25,8 +28,6 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> {
     final filteredUsers = usersData
         .where((user) =>
             user.username?.toLowerCase().contains(searchQuery.toLowerCase()) ??
-            false ||
-                user.email!.toLowerCase().contains(searchQuery.toLowerCase()) ??
             false)
         .toList();
 
@@ -36,25 +37,23 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> {
           child: Column(
             children: [
               TopBar(
-                title: 'Manage Users',
+                title: 'Booking Management',
                 onBackPressed: () {
                   Navigator.pop(context);
                 },
               ),
-
               SizedBox(height: screenHeight * 0.01), // 1% of screen height
               _buildSearchBar(paddingHorizontal, searchBarHeight),
-              SizedBox(
-                  height:
-                      screenHeight * 0.01), // Space between search bar and row
-              _buildUserListRow(paddingHorizontal),
+              SizedBox(height: screenHeight * 0.01), // 1% of screen height
+              _buildUserListRow(context, paddingHorizontal),
               if (filteredUsers.isEmpty)
                 Padding(
-                  padding: EdgeInsets.all(screenHeight * 0.02),
+                  padding:
+                      EdgeInsets.all(screenWidth * 0.04), // 4% of screen width
                   child: Text(
                     'No users found.',
                     style: TextStyle(
-                        fontSize: screenWidth * 0.04, color: Colors.grey),
+                        fontSize: screenHeight * 0.02, color: Colors.grey),
                   ),
                 )
               else
@@ -72,24 +71,50 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> {
     );
   }
 
-  Widget _buildUserListRow(double paddingHorizontal) {
+  Widget _buildUserListRow(BuildContext context, double paddingHorizontal) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: paddingHorizontal),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            'Users List',
+          const Text(
+            'Booking Overview',
             style: TextStyle(
-              fontSize:
-                  paddingHorizontal * 1.2, // Adjust font size based on padding
+              fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
           ),
+          Spacer(),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddCommission(),
+                ),
+              );
+            },
+            child: const Text(
+              "Commissions",
+              style: TextStyle(
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ),
+          SizedBox(width: paddingHorizontal * 0.1), // Add some spacing
           GestureDetector(
             onTap: () {},
-            child: Text(
-              "Deactivate",
+            child: const Text(
+              "Reschedule",
+              style: TextStyle(
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ),
+          SizedBox(width: paddingHorizontal * 0.1), // Add some spacing
+          GestureDetector(
+            onTap: () {},
+            child: const Text(
+              "Cancel",
               style: TextStyle(
                 decoration: TextDecoration.underline,
               ),
@@ -127,7 +152,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> {
   }
 
   Widget _buildUserList(List<User> users, double listHeight) {
-    return Container(
+    return SizedBox(
       height: listHeight,
       child: ListView.builder(
         padding: EdgeInsets.zero,
@@ -140,14 +165,16 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> {
               borderRadius: BorderRadius.circular(8.0),
             ),
             elevation: 4,
-            margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 12.0),
+            margin: EdgeInsets.symmetric(
+              vertical: listHeight * 0.01, // 1% of list height
+              horizontal: listHeight * 0.02, // 2% of list height
+            ),
             child: ListTile(
               title: Text(
                 "${user.username ?? "No Name"}",
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: MediaQuery.of(context).size.width *
-                      0.045, // Adjust font size based on screen width
+                  fontSize: listHeight * 0.03, // Adjust based on list height
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -158,6 +185,10 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> {
                     "${user.email ?? "No Email"}",
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
+                    style: TextStyle(
+                      fontSize:
+                          listHeight * 0.02, // Adjust based on list height
+                    ),
                   ),
                   Text(
                     "${user.date ?? "No Date"}",
@@ -165,8 +196,8 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> {
                     maxLines: 1,
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: MediaQuery.of(context).size.width *
-                          0.035, // Adjust font size based on screen width
+                      fontSize:
+                          listHeight * 0.02, // Adjust based on list height
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -183,8 +214,8 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> {
                     style: TextStyle(
                       color:
                           user.status == 'Active' ? Colors.green : Colors.red,
-                      fontSize: MediaQuery.of(context).size.width *
-                          0.035, // Adjust font size based on screen width
+                      fontSize:
+                          listHeight * 0.02, // Adjust based on list height
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -193,10 +224,7 @@ class _ManageUsersScreenState extends State<ManageUsersScreen> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => UserProfileScreen(
-                            user: user,
-                          )),
+                  MaterialPageRoute(builder: (context) => AddCommission()),
                 );
               },
             ),

@@ -44,7 +44,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
           child: Column(
             children: [
               TopBar(
-                title: 'Add Service',
+                title: 'Add Service Manager',
                 onBackPressed: () {
                   Navigator.pop(context);
                 },
@@ -60,18 +60,18 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                       TextFormField(
                         controller: _serviceNameController,
                         decoration: InputDecoration(
-                          labelText: 'Service Name',
-                          hintText: 'Enter service name',
+                          labelText: 'Service Manager Name',
+                          hintText: 'Enter service Manager Name',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                                 color: Color(0xFF2A9D8F), width: 2.0),
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                                 color: Color(0xFF2A9D8F), width: 1.0),
                             borderRadius: BorderRadius.circular(12.0),
                           ),
@@ -84,6 +84,35 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                         },
                       ),
                       SizedBox(height: spacingScale),
+                      TextFormField(
+                    controller: _serviceNameController,
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                    labelText: 'Contact Number',
+                   hintText: 'Enter contact number',
+                    border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                     focusedBorder: OutlineInputBorder(
+                 borderSide: const BorderSide(color: Color(0xFF2A9D8F), width: 2.0),
+                 borderRadius: BorderRadius.circular(12.0),
+                 ),
+                 enabledBorder: OutlineInputBorder(
+                 borderSide: const BorderSide(color: Color(0xFF2A9D8F), width: 1.0),
+                 borderRadius: BorderRadius.circular(12.0),
+                     ),
+                   ),
+                  validator: (value) {
+               if (value == null || value.isEmpty) {
+                return 'Please enter a contact number';
+                } else if (!RegExp(r'^\d{10}$').hasMatch(value)) {
+                 return 'Enter a valid 10-digit number';
+                }
+               return null;
+               },
+                 ),
+
+                      SizedBox(height: spacingScale),
 
                       DropdownButtonFormField<String>(
                         decoration: InputDecoration(
@@ -93,12 +122,12 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide:const BorderSide(
                                 color: Color(0xFF2A9D8F), width: 2.0),
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide:const BorderSide(
                                 color: Color(0xFF2A9D8F), width: 1.0),
                             borderRadius: BorderRadius.circular(12.0),
                           ),
@@ -122,6 +151,8 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                           return null;
                         },
                       ),
+
+
                       SizedBox(height: spacingScale),
 
                       TextFormField(
@@ -133,12 +164,12 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                                 color: Color(0xFF2A9D8F), width: 2.0),
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide:const BorderSide(
                                 color: Color(0xFF2A9D8F), width: 1.0),
                             borderRadius: BorderRadius.circular(12.0),
                           ),
@@ -153,99 +184,104 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                       ),
                       SizedBox(height: spacingScale),
 
-                      TextFormField(
-                        controller: _priceController,
-                        decoration: InputDecoration(
-                          labelText: 'Price',
-                          hintText: 'Enter service price',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color(0xFF2A9D8F), width: 2.0),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color(0xFF2A9D8F), width: 1.0),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                        ),
-                        keyboardType: TextInputType.number,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a price';
-                          }
-                          if (double.tryParse(value) == null) {
-                            return 'Please enter a valid price';
-                          }
-                          return null;
-                        },
-                      ),
+                      // TextFormField(
+                      //   controller: _priceController,
+                      //   decoration: InputDecoration(
+                      //     labelText: 'Price',
+                      //     hintText: 'Enter service price',
+                      //     border: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.circular(12.0),
+                      //     ),
+                      //     focusedBorder: OutlineInputBorder(
+                      //       borderSide: BorderSide(
+                      //           color: Color(0xFF2A9D8F), width: 2.0),
+                      //       borderRadius: BorderRadius.circular(12.0),
+                      //     ),
+                      //     enabledBorder: OutlineInputBorder(
+                      //       borderSide: BorderSide(
+                      //           color: Color(0xFF2A9D8F), width: 1.0),
+                      //       borderRadius: BorderRadius.circular(12.0),
+                      //     ),
+                      //   ),
+                      //   keyboardType: TextInputType.number,
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return 'Please enter a price';
+                      //     }
+                      //     if (double.tryParse(value) == null) {
+                      //       return 'Please enter a valid price';
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
 
-                      SizedBox(height: spacingScale),
-                      Text(
+                      // SizedBox(height: spacingScale),
+                      const Text(
                         'Availability',
                         style: TextStyle(color: Color(0xFF2A9D8F)),
                       ),
-                      Row(
+                            SingleChildScrollView(
+                          scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+                        child: Row(
                         children: [
-                          Radio<String>(
-                            value: 'Everyday',
-                            groupValue: _selectedAvailability,
-                            onChanged: (value) {
+                        Radio<String>(
+                       value: 'Everyday',
+                     groupValue: _selectedAvailability,
+                        onChanged: (value) {
                               setState(() {
-                                _selectedAvailability = value;
-                              });
-                            },
+                         _selectedAvailability = value;
+                            });
+                           },
                           ),
-                          Text('Everyday'),
-                          Radio<String>(
-                            value: 'EveryWeek',
-                            groupValue: _selectedAvailability,
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedAvailability = value;
-                              });
-                            },
-                          ),
-                          Text('EveryWeek'),
-                          Radio<String>(
-                            value: 'Weekends',
-                            groupValue: _selectedAvailability,
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedAvailability = value;
-                              });
-                            },
-                          ),
-                          Text('Weekends'),
-                          // Radio<String>(
-                          //   value: 'Custom',
-                          //   groupValue: _selectedAvailability,
-                          //   onChanged: (value) {
-                          //     setState(() {
-                          //       _selectedAvailability = value;
-                          //       _showDatePicker();
-                          //     });
-                          //   },
-                          // ),
-                          // Text('Custom'),
-                        ],
+                          const Text('Everyday'),
+                            Radio<String>(
+                        value: 'EveryWeek',
+                        groupValue: _selectedAvailability,
+                         onChanged: (value) {
+                       setState(() {
+                         _selectedAvailability = value;
+                            });
+                        },
                       ),
-                      if (_selectedDate != null)
-                        Text(
-                          'Selected Date: ${DateFormat('yyyy-MM-dd').format(_selectedDate!)}',
-                        ),
-                      SizedBox(height: spacingScale),
-                      ElevatedButton(
-                        onPressed: _showDatePicker,
-                        child: Text('Select Date'),
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(double.infinity, buttonHeight),
-                        ),
-                      ),
+                    const Text('EveryWeek'),
+                     Radio<String>(
+                  value: 'Weekends',
+              groupValue: _selectedAvailability,
+        onChanged: (value) {
+          setState(() {
+            _selectedAvailability = value;
+          });
+        },
+      ),
+      const Text('Weekends'),
+      Radio<String>(
+        value: 'Monthly',
+        groupValue: _selectedAvailability,
+        onChanged: (value) {
+          setState(() {
+            _selectedAvailability = value;
+            _showDatePicker();
+          });
+        },
+      ),
+      const Text('Monthly'),
+    ],
+  ),
+),
+
+
+                      // if (_selectedDate != null)
+                      //   Text(
+                      //     'Selected Date: ${DateFormat('yyyy-MM-dd').format(_selectedDate!)}',
+                      //   ),
+                      // SizedBox(height: spacingScale),
+                      // ElevatedButton(
+                      //   onPressed: _showDatePicker,
+                      //   child: Text('Select Date'),
+                      //   style: ElevatedButton.styleFrom(
+                      //     minimumSize: Size(double.infinity, buttonHeight),
+                      //   ),
+                      // ),
                       SizedBox(
                           height: spacingScale *
                               1.5), // Larger spacing before the button
@@ -260,14 +296,14 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   backgroundColor: Color(0xFF2A9D8F),
-                                  title: Text(
+                                  title: const Text(
                                     'Success',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
                                   ),
-                                  content: Text(
+                                  content: const Text(
                                     'Service successfully added.',
                                     style: TextStyle(
                                       color: Colors.white,

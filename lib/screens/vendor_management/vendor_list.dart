@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gomedserv/widgets/bottomnavigation.dart';
-import 'package:gomedserv/vendor_management/add_vendor.dart';
+import 'package:gomedserv/screens/vendor_management/add_vendor.dart';
 import 'package:gomedserv/widgets/topbar.dart';
 import 'package:gomedserv/models/manage_users_model.dart';
 
